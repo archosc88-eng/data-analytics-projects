@@ -1,0 +1,9 @@
+--Code to a new table to compare the most value product from two diffierent database
+--Autor: oscar Archila.
+SELECT ProductID, sum(quantity) as total_vendido,
+       (SELECT Price FROM Products WHERE ProductID = OD.ProductID) as Price,
+	   (SELECT ProductName FROM Products WHERE ProductID = OD.ProductID) as name,
+	   round((sum(quantity)*(SELECT Price FROM Products WHERE ProductID = OD.ProductID))) as total_recaudado
+from [OrderDetails] OD
+GROUP BY ProductID
+order by total_recaudado DESC
